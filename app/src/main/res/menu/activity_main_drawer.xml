@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_living_room"
+            android:icon="@drawable/ic_menu_living_room"
+            android:title="客厅终端"/>
+        <item
+            android:id="@+id/nav_bedroom"
+            android:icon="@drawable/ic_menu_bedroom"
+            android:title="卧室终端"/>
+        <item
+            android:id="@+id/nav_kitchen"
+            android:icon="@drawable/ic_menu_kitchen"
+            android:title="厨房终端"/>
+        <item
+            android:id="@+id/nav_curtain"
+            android:icon="@drawable/ic_menu_curtain"
+            android:title="智能窗帘"/>
+    </group>
+
+
+
+</menu>
