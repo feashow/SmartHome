@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,9 +34,10 @@ public class CurtainFragment extends Fragment
 
                     textView_light.setText(dataProcess.txt_cur_light);
                     textView_shock.setText(dataProcess.txt_cur_shock);
-                    if (dataProcess.txt_cur_state == "0")
+                    Log.i(MainActivity.TAG,dataProcess.txt_cur_state);
+                    if (dataProcess.txt_cur_state .equals("0") )
                         textView_state.setText("关");
-                    else if(dataProcess.txt_cur_state == "1")
+                    else if(dataProcess.txt_cur_state .equals("1"))
                         textView_state.setText("开");
                 }
             });

@@ -30,6 +30,7 @@ import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
+    final static String TAG="SMARTHOME";
     protected Handler handler;
     Toolbar toolbar;
     private LivingRoomFragment livingRoomFragment = new LivingRoomFragment();
