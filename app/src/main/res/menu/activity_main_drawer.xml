@@ -18,6 +18,10 @@
             android:id="@+id/nav_curtain"
             android:icon="@drawable/ic_menu_curtain"
             android:title="智能窗帘"/>
+        <item
+            android:id="@+id/nav_balcony"
+            android:icon="@drawable/ic_menu_balcony"
+            android:title="阳台终端"/>
     </group>
 
 

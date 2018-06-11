@@ -1,79 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:id="@+id/frameLayout"
                                              android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
+                                             android:layout_height="match_parent"
+                                             tools:context=".BalconyFragment">
+
+    <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:id="@+id/bed_temp"
+        android:id="@+id/balcony_temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="72dp"
-        android:text="卧室温度："
+        android:text="阳台温度："
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/bed_light"
+        android:id="@+id/balcony_light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="64dp"
-        android:text="卧室光强："
+        android:text="阳台光强："
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bed_temp"/>
+        app:layout_constraintEnd_toEndOf="@+id/balcony_temp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/balcony_temp"
+        app:layout_constraintTop_toBottomOf="@+id/balcony_temp"/>
 
     <TextView
-        android:id="@+id/bed_ir"
+        android:id="@+id/balcony_humidty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="64dp"
-        android:text="人体红外："
+        android:text="阳台湿度："
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bed_light"/>
+        app:layout_constraintEnd_toEndOf="@+id/balcony_light"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/balcony_light"
+        app:layout_constraintTop_toBottomOf="@+id/balcony_light"/>
 
     <TextView
-        android:id="@+id/bed_temp_txt"
+        android:id="@+id/balcony_temp_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="72dp"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/bed_temp"
+        app:layout_constraintStart_toEndOf="@+id/balcony_temp"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/bed_light_txt"
+        android:id="@+id/balcony_light_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="64dp"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/bed_light"
-        app:layout_constraintTop_toBottomOf="@+id/bed_temp_txt"/>
+        app:layout_constraintEnd_toEndOf="@+id/balcony_temp_txt"
+        app:layout_constraintStart_toStartOf="@+id/balcony_temp_txt"
+        app:layout_constraintTop_toBottomOf="@+id/balcony_temp_txt"/>
 
     <TextView
-        android:id="@+id/bed_ir_txt"
+        android:id="@+id/balcony_humidty_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="64dp"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/bed_ir"
-        app:layout_constraintTop_toBottomOf="@+id/bed_light_txt"/>
-
+        app:layout_constraintEnd_toEndOf="@+id/balcony_light_txt"
+        app:layout_constraintStart_toStartOf="@+id/balcony_light_txt"
+        app:layout_constraintTop_toBottomOf="@+id/balcony_light_txt"/>
 </android.support.constraint.ConstraintLayout>

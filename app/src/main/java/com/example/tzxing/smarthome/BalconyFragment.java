@@ -1,22 +1,27 @@
 package com.example.tzxing.smarthome;
 
+
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class BedroomFragment extends Fragment
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class BalconyFragment extends Fragment
 {
+
     private TextView textView_temperature;
     private  TextView textView_light;
-    private  TextView textView_ir;
+    private  TextView textView_humidity;
     private Context mContext;
     private DataProcess dataProcess;
     private mBroadcastReceiver mBroadcastReceiver=new mBroadcastReceiver(){
@@ -33,31 +38,32 @@ public class BedroomFragment extends Fragment
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    textView_temperature.setText(dataProcess.txt_bed_temperature+ "℃");
-                    textView_light.setText(dataProcess.txt_bed_light);
-                    textView_ir.setText(dataProcess.txt_bed_ir);
+                    textView_temperature.setText(dataProcess.txt_balcony_temperature+ "℃");
+                    textView_light.setText(dataProcess.txt_balcony_light);
+                    textView_humidity.setText(dataProcess.txt_balcony_humidity);
                 }
             });
         }
     };
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
+    public BalconyFragment()
     {
+        // Required empty public constructor
+    }
 
-        View view=inflater.inflate(R.layout.fragment_bedroom,container,false);
-        textView_temperature=view.findViewById(R.id.bed_temp_txt);
-        textView_light=view.findViewById(R.id.bed_light_txt);
-        textView_ir=view.findViewById(R.id.bed_ir_txt);
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState)
+    {
+        View view=inflater.inflate(R.layout.fragment_balcony, container, false);
+        textView_temperature=view.findViewById(R.id.balcony_temp_txt);
+        textView_light=view.findViewById(R.id.balcony_light_txt);
+        textView_humidity=view.findViewById(R.id.balcony_humidty_txt);
         mContext=this.getActivity();
 
         return view;
     }
-
-
-
-
 
     public void onResume() {
         super.onResume();
@@ -78,4 +84,5 @@ public class BedroomFragment extends Fragment
         //销毁在onResume()方法中的广播
         mContext.unregisterReceiver(mBroadcastReceiver);
     }
+
 }
