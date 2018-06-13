@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //调用Context的registerReceiver（）方法进行动态注册
         mContext.registerReceiver(mBroadcastReceiver, intentFilter);
 
-
+        init();
     }
 
 
@@ -182,8 +182,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+
+
+    private void hideFragment(FragmentTransaction transaction){
+        if(livingRoomFragment != null){
+            transaction.hide(livingRoomFragment);
+        }
+        if(bedroomFragment != null){
+            transaction.hide(bedroomFragment);
+        }
+        if(kitchenFragment != null){
+            transaction.hide(kitchenFragment);
+        }
+        if(curtainFragment != null){
+            transaction.hide(curtainFragment);
+        }
+        if(balconyFragment != null){
+            transaction.hide(balconyFragment);
+        }
+    }
+
+
     public boolean onNavigationItemSelected(MenuItem item)
     {
+
 
         int id = item.getItemId();
 
@@ -191,35 +213,49 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.main, livingRoomFragment);
+//            if(!livingRoomFragment.isAdded())
+//                fragmentTransaction.add(R.id.main, livingRoomFragment);
+            hideFragment(fragmentTransaction);
+            fragmentTransaction.show(livingRoomFragment);
             fragmentTransaction.commit();
             toolbar.setTitle("客厅终端");
         } else if (id == R.id.nav_bedroom)
         {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.main, bedroomFragment);
+//            if(!bedroomFragment.isAdded())
+//                fragmentTransaction.add(R.id.main, bedroomFragment);
+            hideFragment(fragmentTransaction);
+            fragmentTransaction.show(bedroomFragment);
             fragmentTransaction.commit();
             toolbar.setTitle("卧室终端");
         } else if (id == R.id.nav_kitchen)
         {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.main, kitchenFragment);
+//            if(!kitchenFragment.isAdded())
+//                fragmentTransaction.add(R.id.main, kitchenFragment);
+            hideFragment(fragmentTransaction);
+            fragmentTransaction.show(kitchenFragment);
             fragmentTransaction.commit();
             toolbar.setTitle("厨房终端");
         } else if (id == R.id.nav_curtain)
         {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.main, curtainFragment);
-            fragmentTransaction.commit();
+//            if(!curtainFragment.isAdded())
+//                fragmentTransaction.add(R.id.main, curtainFragment);
+            hideFragment(fragmentTransaction);
+            fragmentTransaction.show(curtainFragment);            fragmentTransaction.commit();
             toolbar.setTitle("智能窗帘");
         }else if (id==R.id.nav_balcony)
         {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.main, balconyFragment);
+//            if(!balconyFragment.isAdded())
+//                fragmentTransaction.add(R.id.main, balconyFragment);
+            hideFragment(fragmentTransaction);
+            fragmentTransaction.show(balconyFragment);
             fragmentTransaction.commit();
             toolbar.setTitle("阳台终端");
         }
@@ -229,6 +265,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+private void init()
+{
+    FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
+    fragmentTransaction.add(R.id.main, livingRoomFragment);
+    fragmentTransaction.add(R.id.main, bedroomFragment);
+    fragmentTransaction.add(R.id.main, kitchenFragment);
+    fragmentTransaction.add(R.id.main, curtainFragment);
+    fragmentTransaction.add(R.id.main, balconyFragment);
+    hideFragment(fragmentTransaction);
+    fragmentTransaction.commit();
+}
+
 
 
     @Override
