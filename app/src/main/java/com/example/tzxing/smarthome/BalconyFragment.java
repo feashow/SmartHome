@@ -38,9 +38,12 @@ public class BalconyFragment extends Fragment
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    textView_temperature.setText(dataProcess.txt_balcony_temperature+ "℃");
-                    textView_light.setText(dataProcess.txt_balcony_light);
-                    textView_humidity.setText(dataProcess.txt_balcony_humidity);
+                    if(dataProcess.txt_balcony_temperature!=null)
+                        textView_temperature.setText(dataProcess.txt_balcony_temperature+ "℃");
+                    if(dataProcess.txt_balcony_light!=null)
+                        textView_light.setText(dataProcess.txt_balcony_light);
+                    if(dataProcess.txt_balcony_humidity!=null)
+                        textView_humidity.setText(dataProcess.txt_balcony_humidity);
                 }
             });
         }

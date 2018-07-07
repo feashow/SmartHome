@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -33,9 +34,18 @@ public class BedroomFragment extends Fragment
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    textView_temperature.setText(dataProcess.txt_bed_temperature+ "℃");
-                    textView_light.setText(dataProcess.txt_bed_light);
-                    textView_ir.setText(dataProcess.txt_bed_ir);
+                    if(dataProcess.txt_bed_temperature!=null)
+                        textView_temperature.setText(dataProcess.txt_bed_temperature+ "℃");
+                    if(dataProcess.txt_bed_light!=null)
+                        textView_light.setText(dataProcess.txt_bed_light);
+                    if(dataProcess.txt_bed_ir!=null)
+                        textView_ir.setText(dataProcess.txt_bed_ir);
+                    if(dataProcess.bed_alert!=null&&dataProcess.bed_alert.equals("1"))
+                    {
+                        MediaPlayer mediaPlayer;
+                        mediaPlayer = MediaPlayer.create(mContext, R.raw.enen);
+                        mediaPlayer.start();
+                    }
                 }
             });
         }

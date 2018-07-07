@@ -76,4 +76,64 @@
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/cur_state"
         app:layout_constraintTop_toBottomOf="@+id/cur_shock_txt"/>
+
+    <Button
+        android:id="@+id/auto_open"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="自动正"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cur_state" />
+
+    <Button
+        android:id="@+id/auto_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="自动负"
+        app:layout_constraintBottom_toBottomOf="@+id/auto_open"
+        app:layout_constraintEnd_toStartOf="@+id/manual"
+        app:layout_constraintStart_toEndOf="@+id/auto_open"
+        app:layout_constraintTop_toTopOf="@+id/auto_open"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/manual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="8dp"
+        android:text="按键模式"
+        app:layout_constraintBottom_toBottomOf="@+id/auto_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/auto_close"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/openCurtain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="28dp"
+        android:text="开"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/auto_open" />
+
+    <Button
+        android:id="@+id/closeCurtain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginStart="8dp"
+        android:text="关"
+        app:layout_constraintBottom_toBottomOf="@+id/openCurtain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/openCurtain"
+        app:layout_constraintTop_toTopOf="@+id/openCurtain"
+        app:layout_constraintVertical_bias="0.0" />
 </android.support.constraint.ConstraintLayout>

@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public void onReceive(Context context, final Intent intent)
         {
-            final byte msg = intent.getExtras().getByte("send");
+            final byte[] msg = intent.getExtras().getString("send").getBytes();
             Thread thread = new Thread(new Runnable()
             {
                 @Override
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 {
                     try
                     {
+                        Log.i(TAG,msg.toString());
                         outputStream.write(msg);
                         outputStream.flush();
                     } catch (IOException e)

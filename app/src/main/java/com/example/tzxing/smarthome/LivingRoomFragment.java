@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.media.MediaPlayer;
+
 
 public class LivingRoomFragment extends Fragment
 {
@@ -33,9 +35,18 @@ public class LivingRoomFragment extends Fragment
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    textView_temperature.setText(dataProcess.txt_liv_temperature+ "℃");
-                    textView_light.setText(dataProcess.txt_liv_light);
-                    textView_ir.setText(dataProcess.txt_liv_ir);
+                    if(dataProcess.txt_liv_temperature!=null)
+                        textView_temperature.setText(dataProcess.txt_liv_temperature+ "℃");
+                    if(dataProcess.txt_liv_light!=null)
+                        textView_light.setText(dataProcess.txt_liv_light);
+                    if(dataProcess.txt_liv_ir!=null)
+                        textView_ir.setText(dataProcess.txt_liv_ir);
+                    if(dataProcess.liv_alert!=null&&dataProcess.liv_alert.equals("1"))
+                    {
+                        MediaPlayer mediaPlayer;
+                        mediaPlayer = MediaPlayer.create(mContext, R.raw.enen);
+                        mediaPlayer.start();
+                    }
                 }
             });
         }

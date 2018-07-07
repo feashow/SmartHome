@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -33,8 +34,16 @@ public class KitchenFragment extends Fragment
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    textView_temperature.setText(dataProcess.txt_kit_temperature+ "℃");
-                    textView_smoke.setText(dataProcess.txt_kit_smoke);
+                    if(dataProcess.txt_kit_temperature!=null)
+                        textView_temperature.setText(dataProcess.txt_kit_temperature+ "℃");
+                    if(dataProcess.txt_kit_smoke!=null)
+                        textView_smoke.setText(dataProcess.txt_kit_smoke);
+                    if(dataProcess.kit_alert!=null&&dataProcess.kit_alert.equals("1"))
+                    {
+                        MediaPlayer mediaPlayer;
+                        mediaPlayer = MediaPlayer.create(mContext, R.raw.enen);
+                        mediaPlayer.start();
+                    }
                 }
             });
         }
