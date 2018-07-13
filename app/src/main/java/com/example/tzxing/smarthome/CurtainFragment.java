@@ -1,6 +1,7 @@
 package com.example.tzxing.smarthome;
 
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -15,11 +16,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class CurtainFragment extends Fragment implements View.OnClickListener
-{
+public class CurtainFragment extends Fragment implements View.OnClickListener {
     private TextView textView_shock;
-    private  TextView textView_state;
-    private  TextView textView_light;
+    private TextView textView_state;
+    private TextView textView_light;
     private Context mContext;
     private DataProcess dataProcess;
     private Button auto_open;
@@ -27,7 +27,7 @@ public class CurtainFragment extends Fragment implements View.OnClickListener
     private Button manual;
     private Button openCurtain;
     private Button closeCurtain;
-    private mBroadcastReceiver mBroadcastReceiver = new mBroadcastReceiver() {
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String msg = intent.getExtras().getString("receiveMsg");
@@ -39,23 +39,19 @@ public class CurtainFragment extends Fragment implements View.OnClickListener
                 @Override
                 public void run() {
 
-                    if(dataProcess.txt_cur_light!=null)
+                    if (dataProcess.txt_cur_light != null)
                         textView_light.setText(dataProcess.txt_cur_light);
-                    if(dataProcess.txt_cur_shock!=null)
+                    if (dataProcess.txt_cur_shock != null)
                         textView_shock.setText(dataProcess.txt_cur_shock);
-                    try
-                    {
-                        if (dataProcess.txt_cur_state .equals("0") )
+                    try {
+                        if (dataProcess.txt_cur_state.equals("0"))
                             textView_state.setText("关");
-                        else if(dataProcess.txt_cur_state .equals("1"))
+                        else if (dataProcess.txt_cur_state.equals("1"))
                             textView_state.setText("开");
-                    }
-                    catch (Exception e)
-                    {
+                    } catch (Exception e) {
 
                     }
-                    if(dataProcess.cur_alert!=null&&dataProcess.cur_alert.equals("1"))
-                    {
+                    if (dataProcess.cur_alert != null && dataProcess.cur_alert.equals("1")) {
                         MediaPlayer mediaPlayer;
                         mediaPlayer = MediaPlayer.create(mContext, R.raw.enen);
                         mediaPlayer.start();
@@ -66,28 +62,24 @@ public class CurtainFragment extends Fragment implements View.OnClickListener
     };
 
 
-
-
-
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
-    {
-        View view=inflater.inflate(R.layout.fragment_curtain,container,false);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_curtain, container, false);
         textView_light = view.findViewById(R.id.cur_light_txt);
         textView_shock = view.findViewById(R.id.cur_shock_txt);
         textView_state = view.findViewById(R.id.cur_state_txt);
-        auto_open=view.findViewById(R.id.auto_open);
+        auto_open = view.findViewById(R.id.auto_open);
         auto_open.setOnClickListener(this);
-        auto_close=view.findViewById(R.id.auto_close);
+        auto_close = view.findViewById(R.id.auto_close);
         auto_close.setOnClickListener(this);
-        manual=view.findViewById(R.id.manual);
+        manual = view.findViewById(R.id.manual);
         manual.setOnClickListener(this);
-        openCurtain=view.findViewById(R.id.openCurtain);
+        openCurtain = view.findViewById(R.id.openCurtain);
         openCurtain.setOnClickListener(this);
-        closeCurtain=view.findViewById(R.id.closeCurtain);
+        closeCurtain = view.findViewById(R.id.closeCurtain);
         closeCurtain.setOnClickListener(this);
-        mContext=this.getActivity();
+        mContext = this.getActivity();
         return view;
     }
 
@@ -116,10 +108,8 @@ public class CurtainFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        switch (view.getId())
-        {
-            case R.id.auto_open:
-            {
+        switch (view.getId()) {
+            case R.id.auto_open: {
                 try {
                     //向Activity发送请求
                     Intent mIntent = new Intent();
@@ -131,8 +121,7 @@ public class CurtainFragment extends Fragment implements View.OnClickListener
                 }
                 break;
             }
-            case R.id.auto_close:
-            {
+            case R.id.auto_close: {
                 try {
                     //向Activity发送请求
                     Intent mIntent = new Intent();
@@ -144,8 +133,7 @@ public class CurtainFragment extends Fragment implements View.OnClickListener
                 }
                 break;
             }
-            case R.id.manual:
-            {
+            case R.id.manual: {
                 try {
                     //向Activity发送请求
                     Intent mIntent = new Intent();
@@ -157,8 +145,7 @@ public class CurtainFragment extends Fragment implements View.OnClickListener
                 }
                 break;
             }
-            case R.id.openCurtain:
-            {
+            case R.id.openCurtain: {
                 try {
                     //向Activity发送请求
                     Intent mIntent = new Intent();
@@ -170,8 +157,7 @@ public class CurtainFragment extends Fragment implements View.OnClickListener
                 }
                 break;
             }
-            case R.id.closeCurtain:
-            {
+            case R.id.closeCurtain: {
                 try {
                     //向Activity发送请求
                     Intent mIntent = new Intent();
@@ -184,19 +170,6 @@ public class CurtainFragment extends Fragment implements View.OnClickListener
                 break;
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }

@@ -1,5 +1,6 @@
 package com.example.tzxing.smarthome;
 
+//处理接收的数据，数据结构参见先关文档
 public class DataProcess
 {
     public String txt_liv_temperature;
@@ -21,16 +22,12 @@ public class DataProcess
     public String txt_balcony_light;
     public String txt_balcony_humidity;
 
-    public DataProcess(String s)
-    {
-        if(s.indexOf('L')!=-1)
-        {
+    public DataProcess(String s) {
+        if(s.indexOf('L')!=-1) {
             int begin=s.indexOf('L');
             int end=0;
-            for(int i=begin+1;i<s.length();i++)
-            {
-                if(Character.isUpperCase(s.charAt(i)))
-                {
+            for(int i=begin+1; i<s.length(); i++) {
+                if(Character.isUpperCase(s.charAt(i))) {
                     end=i;
                     break;
                 }else if(s.charAt(i)==';')
@@ -47,14 +44,11 @@ public class DataProcess
                 liv_alert=liv.substring(liv.indexOf('w')+1,liv.indexOf('w')+2);
         }
 
-        if(s.indexOf('B')!=-1)
-        {
+        if(s.indexOf('B')!=-1) {
             int begin=s.indexOf('B');
             int end=0;
-            for(int i=begin+1;i<s.length();i++)
-            {
-                if(Character.isUpperCase(s.charAt(i)))
-                {
+            for(int i=begin+1; i<s.length(); i++) {
+                if(Character.isUpperCase(s.charAt(i))) {
                     end=i;
                     break;
                 }else if(s.charAt(i)==';')
@@ -71,14 +65,11 @@ public class DataProcess
                 bed_alert=bed.substring(bed.indexOf('w')+1,bed.indexOf('w')+2);
         }
 
-        if(s.indexOf('K')!=-1)
-        {
+        if(s.indexOf('K')!=-1) {
             int begin=s.indexOf('K');
             int end=0;
-            for(int i=begin+1;i<s.length();i++)
-            {
-                if(Character.isUpperCase(s.charAt(i)))
-                {
+            for(int i=begin+1; i<s.length(); i++) {
+                if(Character.isUpperCase(s.charAt(i))) {
                     end=i;
                     break;
                 }else if(s.charAt(i)==';')
@@ -93,18 +84,15 @@ public class DataProcess
                 kit_alert=kit.substring(kit.indexOf('w')+1,kit.indexOf('w')+2);
         }
 
-        if(s.indexOf('C')!=-1)
-        {
+        if(s.indexOf('C')!=-1) {
             int begin=s.indexOf('C');
             int end=0;
-            for(int i=begin+1;i<s.length();i++)
-            {
-                if(Character.isUpperCase(s.charAt(i)))
-                {
+            for(int i=begin+1; i<s.length(); i++) {
+                if(Character.isUpperCase(s.charAt(i))) {
                     end=i;
                     break;
                 }else if(s.charAt(i)==';')
-                end=i;
+                    end=i;
             }
             String cur=s.substring(begin,end);
             if(cur.indexOf('v')!=-1)
@@ -118,14 +106,11 @@ public class DataProcess
         }
 
 
-        if(s.indexOf('T')!=-1)
-        {
+        if(s.indexOf('T')!=-1) {
             int begin=s.indexOf('T');
             int end=0;
-            for(int i=begin+1;i<s.length();i++)
-            {
-                if(Character.isUpperCase(s.charAt(i)))
-                {
+            for(int i=begin+1; i<s.length(); i++) {
+                if(Character.isUpperCase(s.charAt(i))) {
                     end=i;
                     break;
                 }else if(s.charAt(i)==';')
@@ -144,29 +129,3 @@ public class DataProcess
     }
 
 }
-
-
-
-
-
-/*
-kit_alert = s.substring(17, 18);
-        txt_kit_temperature = s.substring(19, 23);
-        txt_kit_smoke = s.substring(24, 25);
-        liv_alert = s.substring(27, 28);
-        txt_liv_temperature = s.substring(29, 33);
-        txt_liv_light = s.substring(34, 37);
-        txt_liv_ir = s.substring(38, 40);
-        bed_alert = s.substring(42, 43);
-        txt_bed_temperature = s.substring(44, 48);
-        txt_bed_light = s.substring(49, 52);
-        txt_bed_ir = s.substring(53, 55);
-        cur_alert = s.substring(57, 58);
-        txt_cur_light = s.substring(59, 62);
-        txt_cur_shock = s.substring(63, 65);
-        txt_cur_state = s.substring(66, 67);
-        balcony_alert = s.substring(71, 72);
-        txt_balcony_temperature = s.substring(73, 77);
-        txt_balcony_light = s.substring(78, 81);
-        txt_balcony_humidity = s.substring(82, 85);
- */
