@@ -1,6 +1,6 @@
 package com.example.tzxing.smarthome;
 
-//处理接收的数据，数据结构参见先关文档
+//处理接收的数据，数据结构参见相关文档
 public class DataProcess
 {
     public String txt_liv_temperature;

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CurtainFragment extends Fragment implements View.OnClickListener {
     private TextView textView_shock;

@@ -30,20 +30,19 @@ import es.dmoral.toasty.Toasty;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    protected Handler handler;
-    Toolbar toolbar;
-    private LivingRoomFragment livingRoomFragment = new LivingRoomFragment();
-    private BedroomFragment bedroomFragment = new BedroomFragment();
-    private KitchenFragment kitchenFragment = new KitchenFragment();
-    private CurtainFragment curtainFragment = new CurtainFragment();
-    private BalconyFragment balconyFragment = new BalconyFragment();
-    private Socket socket;
-    private String ipAddress, portNumber;
-    private BufferedReader bufferedReader;
-    private OutputStream outputStream;
-    private Context mContext;
-    private Bundle sendBundle;
-    private long firstTime = 0;
+    private Handler handler;
+    private Toolbar mToolbar;
+    private LivingRoomFragment mLivingRoomFragment = new LivingRoomFragment();
+    private BedroomFragment mBedroomFragment = new BedroomFragment();
+    private KitchenFragment mKitchenFragment = new KitchenFragment();
+    private CurtainFragment mCurtainFragment = new CurtainFragment();
+    private BalconyFragment mBalconyFragment = new BalconyFragment();
+    private Socket mSocket;
+    private String mIpAddress, mPortNumber;
+    private BufferedReader mBufferedReader;
+    private OutputStream mOutputStream;
+    private Bundle mSendBundle;
+    private long mFirstTime = 0;
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver()    //匿名内部类
     {
         @Override
@@ -54,8 +53,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 @Override
                 public void run() {
                     try {
-                        outputStream.write(msg);
-                        outputStream.flush();
+                        mOutputStream.write(msg);
+                        mOutputStream.flush();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -69,25 +68,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); // 设置布局
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);   //给DrawerLayout设置开关的监听
         toggle.syncState(); //实现toolbar和Drawer的联动
 
         NavigationView navigationView = findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mContext = this;
         handler = new Handler();
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        ipAddress = bundle.getString("ipAddress");
-        portNumber = bundle.getString("portNumber");
-
+        mIpAddress = bundle.getString("ipAddress");
+        mPortNumber = bundle.getString("portNumber");
 
         ExecutorService mThreadPool = Executors.newFixedThreadPool(10);
         mThreadPool.execute(new Runnable() {
@@ -96,27 +93,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 try {
                     // 创建Socket对象 & 指定服务端的IP 及 端口号
                     try {
-                        socket = new Socket(ipAddress, Integer.valueOf(portNumber));
+                        mSocket = new Socket(mIpAddress, Integer.valueOf(mPortNumber));
                     } catch (ConnectException e) {
                     }
-                    bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                    outputStream = socket.getOutputStream();
+                    mBufferedReader = new BufferedReader(new InputStreamReader(mSocket.getInputStream()));
+                    mOutputStream = mSocket.getOutputStream();
                     // 判断客户端和服务器是否连接成功
-                    if (socket != null && socket.isConnected())
+                    if (mSocket != null && mSocket.isConnected())
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                Toasty.success(mContext, "连接成功", Toast.LENGTH_SHORT).show();
+                                //运行在主线程
+                                Toasty.success(MainActivity.this, "连接成功", Toast.LENGTH_SHORT).show();
 
                             }
                         });
-                    while (socket.isConnected()) {
+                    while (mSocket.isConnected()) {
                         char[] buffer = new char[86];
-                        bufferedReader.read(buffer);
-                        sendBundle = new Bundle();
-                        sendBundle.putString("receiveMsg", new String(buffer));
+                        mBufferedReader.read(buffer);
+                        mSendBundle = new Bundle();
+                        mSendBundle.putString("receiveMsg", new String(buffer));
                         Intent mIntent = new Intent();
-                        mIntent.putExtras(sendBundle);
+                        mIntent.putExtras(mSendBundle);
                         mIntent.setAction("updateUI");
                         sendBroadcast(mIntent);
                     }
@@ -133,20 +131,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         intentFilter.addAction("send");
 
         //调用Context的registerReceiver（）方法进行动态注册
-        mContext.registerReceiver(mBroadcastReceiver, intentFilter);
+        registerReceiver(mBroadcastReceiver, intentFilter);
 
         init();
     }
 
 
+
     //初始化
     private void init() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.main, livingRoomFragment);
-        fragmentTransaction.add(R.id.main, bedroomFragment);
-        fragmentTransaction.add(R.id.main, kitchenFragment);
-        fragmentTransaction.add(R.id.main, curtainFragment);
-        fragmentTransaction.add(R.id.main, balconyFragment);
+        fragmentTransaction.add(R.id.main, mLivingRoomFragment);
+        fragmentTransaction.add(R.id.main, mBedroomFragment);
+        fragmentTransaction.add(R.id.main, mKitchenFragment);
+        fragmentTransaction.add(R.id.main, mCurtainFragment);
+        fragmentTransaction.add(R.id.main, mBalconyFragment);
         hideFragment(fragmentTransaction);
         fragmentTransaction.commit();
     }
@@ -160,9 +159,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             drawer.closeDrawer(GravityCompat.START);
         } else {
             long secondTime = System.currentTimeMillis();
-            if (secondTime - firstTime > 2000) {
+            if (secondTime - mFirstTime > 2000) {
                 Toasty.info(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-                firstTime = secondTime;
+                mFirstTime = secondTime;
             } else {
                 System.exit(0);
             }
@@ -173,20 +172,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //隐藏所有fragment
     private void hideFragment(FragmentTransaction transaction) {
-        if (livingRoomFragment != null) {
-            transaction.hide(livingRoomFragment);
+        if (mLivingRoomFragment != null) {
+            transaction.hide(mLivingRoomFragment);
         }
-        if (bedroomFragment != null) {
-            transaction.hide(bedroomFragment);
+        if (mBedroomFragment != null) {
+            transaction.hide(mBedroomFragment);
         }
-        if (kitchenFragment != null) {
-            transaction.hide(kitchenFragment);
+        if (mKitchenFragment != null) {
+            transaction.hide(mKitchenFragment);
         }
-        if (curtainFragment != null) {
-            transaction.hide(curtainFragment);
+        if (mCurtainFragment != null) {
+            transaction.hide(mCurtainFragment);
         }
-        if (balconyFragment != null) {
-            transaction.hide(balconyFragment);
+        if (mBalconyFragment != null) {
+            transaction.hide(mBalconyFragment);
         }
     }
 
@@ -198,37 +197,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             hideFragment(fragmentTransaction);
-            fragmentTransaction.show(livingRoomFragment);
+            fragmentTransaction.show(mLivingRoomFragment);
             fragmentTransaction.commit();
-            toolbar.setTitle("客厅终端");
+            mToolbar.setTitle("客厅终端");
         } else if (id == R.id.nav_bedroom) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             hideFragment(fragmentTransaction);
-            fragmentTransaction.show(bedroomFragment);
+            fragmentTransaction.show(mBedroomFragment);
             fragmentTransaction.commit();
-            toolbar.setTitle("卧室终端");
+            mToolbar.setTitle("卧室终端");
         } else if (id == R.id.nav_kitchen) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             hideFragment(fragmentTransaction);
-            fragmentTransaction.show(kitchenFragment);
+            fragmentTransaction.show(mKitchenFragment);
             fragmentTransaction.commit();
-            toolbar.setTitle("厨房终端");
+            mToolbar.setTitle("厨房终端");
         } else if (id == R.id.nav_curtain) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             hideFragment(fragmentTransaction);
-            fragmentTransaction.show(curtainFragment);
+            fragmentTransaction.show(mCurtainFragment);
             fragmentTransaction.commit();
-            toolbar.setTitle("智能窗帘");
+            mToolbar.setTitle("智能窗帘");
         } else if (id == R.id.nav_balcony) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             hideFragment(fragmentTransaction);
-            fragmentTransaction.show(balconyFragment);
+            fragmentTransaction.show(mBalconyFragment);
             fragmentTransaction.commit();
-            toolbar.setTitle("阳台终端");
+            mToolbar.setTitle("阳台终端");
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -239,6 +238,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mContext.unregisterReceiver(mBroadcastReceiver);
+        unregisterReceiver(mBroadcastReceiver);
     }
 }

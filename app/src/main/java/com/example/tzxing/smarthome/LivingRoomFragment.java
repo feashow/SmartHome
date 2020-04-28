@@ -16,29 +16,29 @@ import android.media.MediaPlayer;
 
 
 public class LivingRoomFragment extends Fragment {
-    private TextView textView_temperature;
-    private TextView textView_light;
-    private TextView textView_ir;//红外
+    private TextView mTextViewTemperature;
+    private TextView mTextViewLight;
+    private TextView mTextViewIr;//红外
     private Context mContext;
-    private DataProcess dataProcess;
+    private DataProcess mDataProcess;
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             String msg = intent.getExtras().getString("receiveMsg");
             System.out.println(msg);
-            dataProcess = new DataProcess(msg);
+            mDataProcess = new DataProcess(msg);
             Handler handler = new Handler();
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (dataProcess.txt_liv_temperature != null)
-                        textView_temperature.setText(dataProcess.txt_liv_temperature + "℃");
-                    if (dataProcess.txt_liv_light != null)
-                        textView_light.setText(dataProcess.txt_liv_light);
-                    if (dataProcess.txt_liv_ir != null)
-                        textView_ir.setText(dataProcess.txt_liv_ir);
-                    if (dataProcess.liv_alert != null && dataProcess.liv_alert.equals("1")) {
+                    if (mDataProcess.txt_liv_temperature != null)
+                        mTextViewTemperature.setText(mDataProcess.txt_liv_temperature + "℃");
+                    if (mDataProcess.txt_liv_light != null)
+                        mTextViewLight.setText(mDataProcess.txt_liv_light);
+                    if (mDataProcess.txt_liv_ir != null)
+                        mTextViewIr.setText(mDataProcess.txt_liv_ir);
+                    if (mDataProcess.liv_alert != null && mDataProcess.liv_alert.equals("1")) {
                         MediaPlayer mediaPlayer;
                         mediaPlayer = MediaPlayer.create(mContext, R.raw.enen);
                         mediaPlayer.start();
@@ -53,9 +53,9 @@ public class LivingRoomFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_livingroom, container, false);
-        textView_temperature = view.findViewById(R.id.liv_temp_txt);
-        textView_light = view.findViewById(R.id.liv_light_txt);
-        textView_ir = view.findViewById(R.id.liv_ir_txt);
+        mTextViewTemperature = view.findViewById(R.id.liv_temp_txt);
+        mTextViewLight = view.findViewById(R.id.liv_light_txt);
+        mTextViewIr = view.findViewById(R.id.liv_ir_txt);
         mContext = this.getActivity();
         return view;
     }
